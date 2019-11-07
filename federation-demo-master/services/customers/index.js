@@ -18,6 +18,11 @@ const resolvers = {
     customer(arg) {
       return customers.find(customer => customer.customerNumber === arg);
     }
+  },
+  Customer: {
+    __resolveReference(object) {
+      return customers.find(customer => customer.customerNumber === customer.customerNumber);
+    }
   }
 };
 

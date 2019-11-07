@@ -1,5 +1,5 @@
 {
-  "name": "reviews",
+  "name": "devices",
   "scripts": {
     "start": "node index.js"
   },

@@ -18,6 +18,11 @@ const resolvers = {
     device(arg) {
       return devices.find(device => device.deviceNumber === arg);
     }
+  },
+  Device: {
+    __resolveReference(object) {
+      return devices.find(device => device.deviceNumber === object.deviceNumber);
+    }
   }
 };
 

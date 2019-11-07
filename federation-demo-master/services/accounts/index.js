@@ -9,19 +9,47 @@ const typeDefs = gql`
   type Account @key(fields: "id") {
     id: ID!,
     accountNumber: String,
-    deviceNumber: String,
-    customerNumber: String
+    device: Device,
+    customer: Customer
+  }
+
+  extend type Customer @key(fields: "id") {
+    id: ID! @external
+    accounts: [Account]
+  }
+
+  extend type Device @key(fields: "id") {
+    id: ID! @external
+    accounts: [Account]
   }
 `;
 
 const resolvers = {
+  Account: {
+    customer(account) {
+      return { __typename: "Customer", id: account.customerId}
+    },
+    device(account) {
+      return { __typename: "Device", id: device.deviceId}
+    }
+  },
+  Customer: {
+    accounts(customer) {
+      return accounts.filter(account => account.customer.id === customer.id)
+    }
+  },
+  Device: {
+    accounts(device) {
+      return accounts.filter(account => account.device.id === device.id)
+    }
+  },
   Query: {
     getAccount() {
       return accounts[0];
     }
   },
   Account: {
-    __resolveReference(object) {
+      __resolveReference(object) {
       return accounts.find(account => account.id === object.id);
     }
   }
@@ -44,13 +72,13 @@ const accounts = [
   {
     id: "1",
     accountNumber: "A1111111111",
-    deviceNumber: "D1111111111",
-    customerNumber: "C1111111111"
+    device: {id: "1"},
+    customer: {id: "1"}
   },
   {
     id: "2",
     accountNumber: "A2222222222",
-    deviceNumber: "D2222222222",
-    customerNumber: "C2222222222"
+    device: {id: "2"},
+    customer: {id: "2"}
   }
 ];
