@@ -2,15 +2,15 @@ const { ApolloServer, gql } = require("apollo-server");
 const { buildFederatedSchema } = require("@apollo/federation");
 
 const typeDefs = gql`
-extend type Device {
-  device(fields : String): [Device]
-}
+  extend type Query {
+    device(fields : String): [Device]
+  }
 
-type Device @key(fields: "id") {
-  id: ID!,
-  deviceNumber: String,
-  expiryDate: String
-}
+  type Device @key(fields: "id") {
+    id: ID!
+    deviceNumber: String
+    expiryDate: String
+  }
 `;
 
 const resolvers = {
@@ -20,7 +20,7 @@ const resolvers = {
     }
   },
   Device: {
-    __resolveReference(object) {
+      __resolveReference(object) {
       return devices.find(device => device.deviceNumber === object.deviceNumber);
     }
   }

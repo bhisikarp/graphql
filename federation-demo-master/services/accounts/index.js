@@ -7,9 +7,9 @@ const typeDefs = gql`
   }
 
   type Account @key(fields: "id") {
-    id: ID!,
-    accountNumber: String,
-    device: Device,
+    id: ID!
+    accountNumber: String
+    device: Device
     customer: Customer
   }
 
@@ -26,21 +26,21 @@ const typeDefs = gql`
 
 const resolvers = {
   Account: {
-    customer(account) {
-      return { __typename: "Customer", id: account.customerId}
-    },
     device(account) {
-      return { __typename: "Device", id: device.deviceId}
+      return { __typename: "Device", id: device.deviceId};
+    },
+    customer(account) {
+      return { __typename: "Customer", id: account.customerId};
     }
   },
   Customer: {
     accounts(customer) {
-      return accounts.filter(account => account.customer.id === customer.id)
+      return accounts.filter(account => account.customer.id === customer.id);
     }
   },
   Device: {
     accounts(device) {
-      return accounts.filter(account => account.device.id === device.id)
+      return accounts.filter(account => account.device.id === device.id);
     }
   },
   Query: {
