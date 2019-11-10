@@ -21,7 +21,19 @@ const resolvers = {
   },
   Customer: {
     __resolveReference(object) {
-      return customers.find(customer => customer.customerNumber === customer.customerNumber);
+      var Request = require("request");
+      var customerId = object.id;
+      Request.get("http://localhost:8082/customers/"+customerId, (error, response, body) => {
+          if(error) {
+              return console.dir(error);
+          }
+          var obj = JSON.parse(body);
+          console.dir(JSON.parse(body));
+          return obj;
+      });
+      console.log(customers.find(customer => customer.customerNumber === customer.customerNumber));
+      //return customers.find(customer => customer.customerNumber === customer.customerNumber);
+      return null;
     }
   }
 };

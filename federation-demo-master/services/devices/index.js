@@ -21,7 +21,26 @@ const resolvers = {
   },
   Device: {
     __resolveReference(object) {
-      return devices.find(device => device.deviceNumber === device.deviceNumber);
+
+      const fetch = require('node-fetch');
+      var deviceId = object.id;
+      const query = `
+        query {
+          device(fields:${deviceId}) {
+            id,
+            deviceNumber,
+            expiryDate
+          }
+        }`;
+
+      fetch('http://localhost:8083/graphql', {
+        method: 'POST',
+        body: JSON.stringify({query}),
+      }).then(res => res.text())
+        .then(body => console.log(JSON.parse(body).data.device))
+        .catch(error => console.error(error));
+        return JSON.parse(body).data.device;
+      //return devices.find(device => device.deviceNumber === device.deviceNumber);
     }
   }
 };
