@@ -1,0 +1,14 @@
+type Customer {
+id: ID!,
+customerNumber: String,
+name: String
+}
+
+type Query {
+customers(count: Int):[Customer]
+customer(id: ID):Customer
+customer(fields : String): Customer
+}
+type Mutation {
+createCustomer(customerNumber: String!, name: String):Customer
+}

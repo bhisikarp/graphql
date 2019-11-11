@@ -1,0 +1,16 @@
+type Account {
+id: ID!,
+accountNumber: String,
+availableFunds: Int,
+customerId: Long,
+deviceId: Long
+}
+
+type Query {
+accounts(count: Int):[Account]
+account(id: ID):Account
+accountByAccountNumber(accountNumber: String):Account
+}
+type Mutation {
+createAccount(accountNumber: String!, availableFunds: Int!, customerId: Long, deviceId: Long):Account
+}
