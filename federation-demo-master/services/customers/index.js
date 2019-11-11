@@ -32,8 +32,7 @@ const resolvers = {
           return obj;
       });
       console.log(customers.find(customer => customer.customerNumber === customer.customerNumber));
-      //return customers.find(customer => customer.customerNumber === customer.customerNumber);
-      return null;
+      return customers.find(customer => customer.customerNumber === customer.customerNumber);
     }
   }
 };
