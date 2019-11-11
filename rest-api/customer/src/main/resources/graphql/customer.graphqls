@@ -1,12 +1,12 @@
 type Customer {
-id: ID!,
+id: Int!,
 customerNumber: String,
 name: String
 }
 
 type Query {
 customers(count: Int):[Customer]
-customer(id: ID):Customer
+customer(id: Int):Customer
 customer(fields : String): Customer
 }
 type Mutation {

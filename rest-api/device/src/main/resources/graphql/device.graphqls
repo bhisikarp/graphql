@@ -1,12 +1,12 @@
 type Device {
-id: ID!,
+id: Int!,
 deviceNumber: String
 expiryDate: String
 }
 
 type Query {
 devices(count: Int):[Device]
-device(id: ID):Device
+device(id: Int):Device
 deviceByDeviceNumber(deviceNumber: String):Device
 device(fields: Int):Device
 }

@@ -7,7 +7,7 @@ const typeDefs = gql`
   }
 
   type Customer @key(fields: "id") {
-    id: ID!
+    id: Int!
     customerNumber: String
     name: String
   }
@@ -28,12 +28,10 @@ const resolvers = {
               return console.dir(error);
           }
           var obj = JSON.parse(body);
+          console.log(obj)
           console.dir(JSON.parse(body));
           return obj;
       });
-      console.log(customers.find(customer => customer.customerNumber === customer.customerNumber));
-      //return customers.find(customer => customer.customerNumber === customer.customerNumber);
-      return null;
     }
   }
 };

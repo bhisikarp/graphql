@@ -7,7 +7,7 @@ const typeDefs = gql`
   }
 
   type Device @key(fields: "id") {
-    id: ID!
+    id: Int!
     deviceNumber: String
     expiryDate: String
   }
@@ -37,9 +37,10 @@ const resolvers = {
         method: 'POST',
         body: JSON.stringify({query}),
       }).then(res => res.text())
-        .then(body => console.log(JSON.parse(body).data.device))
+        .then(body => {console.log(JSON.parse(body).data.device);
+        return JSON.parse(body).data.device;})
         .catch(error => console.error(error));
-        return JSON.parse(body).data.device;
+
       //return devices.find(device => device.deviceNumber === device.deviceNumber);
     }
   }

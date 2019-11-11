@@ -7,19 +7,19 @@ const typeDefs = gql`
   }
 
   type Account @key(fields: "id") {
-    id: ID!
+    id: Int!
     accountNumber: String
     device: Device
     customer: Customer
   }
 
   extend type Customer @key(fields: "id") {
-    id: ID! @external
+    id: Int! @external
     accounts: [Account]
   }
 
   extend type Device @key(fields: "id") {
-    id: ID! @external
+    id: Int! @external
     accounts: [Account]
   }
 `;
