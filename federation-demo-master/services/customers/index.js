@@ -28,7 +28,8 @@ const resolvers = {
               return console.dir(error);
           }
           var obj = JSON.parse(body);
-          console.log(obj)
+          console.log("Start");
+          console.log(JSON.parse(body))
           console.dir(JSON.parse(body));
           return obj;
       });

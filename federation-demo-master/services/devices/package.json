@@ -6,6 +6,8 @@
   "dependencies": {
     "@apollo/federation": "latest",
     "apollo-server": "latest",
-    "graphql": "latest"
+    "graphql": "latest",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.8"
   }
 }

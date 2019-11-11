@@ -22,7 +22,7 @@ const resolvers = {
   Device: {
     __resolveReference(object) {
 
-      const fetch = require('node-fetch');
+      /*const fetch = require('node-fetch');
       var deviceId = object.id;
       const query = `
         query {
@@ -36,11 +36,31 @@ const resolvers = {
       fetch('http://localhost:8083/graphql', {
         method: 'POST',
         body: JSON.stringify({query}),
-      }).then(res => res.text())
-        .then(body => {console.log(JSON.parse(body).data.device);
-        return JSON.parse(body).data.device;})
-        .catch(error => console.error(error));
+      }).then(response => {
+        console.log(response.json());
+  return response.json();
+}).catch(err => {console.log(err);});*/
 
+var Request = require("request");
+var deviceId = object.id;
+const query = `
+  query {
+    device(fields:${deviceId}) {
+      id,
+      deviceNumber,
+      expiryDate
+    }
+  }`;
+Request.post({url:     'http://localhost:8083/graphql',
+  body:    JSON.stringify({query})
+}, function(error, response, body){
+  console.log("### Device Response ###")
+  console.log(body);
+  console.log(JSON.parse(body).data.device)
+  console.log("### Returning Device Response ###")
+  return JSON.parse(body).data.device;
+});
+console.log("### Device Response  2 ###")
       //return devices.find(device => device.deviceNumber === device.deviceNumber);
     }
   }
