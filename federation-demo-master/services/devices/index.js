@@ -21,48 +21,34 @@ const resolvers = {
   },
   Device: {
     __resolveReference(object) {
-
-      /*const fetch = require('node-fetch');
       var deviceId = object.id;
-      const query = `
-        query {
-          device(fields:${deviceId}) {
-            id,
-            deviceNumber,
-            expiryDate
-          }
-        }`;
-
-      fetch('http://localhost:8083/graphql', {
-        method: 'POST',
-        body: JSON.stringify({query}),
-      }).then(response => {
-        console.log(response.json());
-  return response.json();
-}).catch(err => {console.log(err);});*/
-
-var Request = require("request");
-var deviceId = object.id;
-const query = `
-  query {
-    device(fields:${deviceId}) {
-      id,
-      deviceNumber,
-      expiryDate
-    }
-  }`;
-Request.post({url:     'http://localhost:8083/graphql',
-  body:    JSON.stringify({query})
-}, function(error, response, body){
-  console.log("### Device Response ###")
-  console.log(body);
-  console.log(JSON.parse(body).data.device)
-  console.log("### Returning Device Response ###")
-  return JSON.parse(body).data.device;
-});
-console.log("### Device Response  2 ###")
+      let responsePromise = resolvers.getDeviceDetails(deviceId);
+      console.log(responsePromise);
+      console.log("### Device Response  2 ###")
       //return devices.find(device => device.deviceNumber === device.deviceNumber);
     }
+  },
+  getDeviceDetails: function getDevice(deviceId) {
+    var Request = require("request");
+    var data;
+    const query = `
+      query {
+        device(fields:${deviceId}) {
+          id,
+          deviceNumber,
+          expiryDate
+        }
+      }`;
+    Request.post({url:     'http://localhost:8083/graphql',
+      body:    JSON.stringify({query})
+    }, function(error, response, body){
+      console.log("### Device Response ###")
+      console.log(JSON.parse(body).data.device)
+      console.log("### Returning Device Response ###")
+      data = JSON.parse(body).data.device;
+      //return JSON.parse(body).data.device;
+    });
+    return data;
   }
 };
 
