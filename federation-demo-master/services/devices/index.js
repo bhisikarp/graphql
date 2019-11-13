@@ -22,13 +22,14 @@ const resolvers = {
   Device: {
     __resolveReference(object) {
       var deviceId = object.id;
-      let responsePromise = resolvers.getDeviceDetails(deviceId);
-      console.log(responsePromise);
+      //let responsePromise = resolvers.getDeviceDetails(deviceId);
+      //console.log(responsePromise);
+      console.log(devices.find(device => device.id === deviceId));
       console.log("### Device Response  2 ###")
-      //return devices.find(device => device.deviceNumber === device.deviceNumber);
+      return devices.find(device => device.id === deviceId);
     }
   },
-  getDeviceDetails: function getDevice(deviceId) {
+  /*getDeviceDetails: function getDevice(deviceId) {
     var Request = require("request");
     var data;
     const query = `
@@ -49,7 +50,7 @@ const resolvers = {
       //return JSON.parse(body).data.device;
     });
     return data;
-  }
+  }*/
 };
 
 const server = new ApolloServer({
@@ -67,12 +68,12 @@ server.listen({ port: 4002 }).then(({ url }) => {
 
 const devices = [
   {
-    id: "1",
+    id: 1,
     deviceNumber: "D1111111111",
     expiryDate: "2019-12-31"
   },
   {
-    id: "2",
+    id: 2,
     deviceNumber: "D2222222222",
     expiryDate: "2020-12-31"
   }

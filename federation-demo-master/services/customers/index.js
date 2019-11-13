@@ -21,7 +21,7 @@ const resolvers = {
   },
   Customer: {
     __resolveReference(object) {
-      var Request = require("request");
+      /*var Request = require("request");
       var customerId = object.id;
       Request.get("http://localhost:8082/customers/"+customerId, (error, response, body) => {
           if(error) {
@@ -32,7 +32,10 @@ const resolvers = {
           console.log(JSON.parse(body))
           console.dir(JSON.parse(body));
           return obj;
-      });
+      });*/
+      console.log(customers.find(customer => customer.id === object.id));
+      console.log("### Customer Response  2 ###")
+      return customers.find(customer => customer.id === object.id);
     }
   }
 };
@@ -52,12 +55,12 @@ server.listen({ port: 4003 }).then(({ url }) => {
 
 const customers = [
   {
-    id: "1",
+    id: 1,
     customerNumber: "C1111111111",
     name: "Priyank"
   },
   {
-    id: "2",
+    id: 2,
     customerNumber: "C2222222222",
     name: "Mandar"
   }
