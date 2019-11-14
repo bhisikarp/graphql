@@ -1,6 +1,5 @@
 package com.graphql.device.graphql;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,10 @@ public class DeviceQuery implements GraphQLQueryResolver {
 	@Autowired
 	private DeviceRepository deviceRepository;
 	
-	public Optional<Device> getDevice(final int id) {
+	public Optional<Device> getDeviceByDeviceId(final int id) {
+		System.out.println("Received Request for Device Id "+id);
 		return deviceRepository.findById(id);
 	}
-	
-	public List<Device> getDevices(final int count) {
-        return (List<Device>) this.deviceRepository.findAll();
-    }
 	
 	public Optional<Device> getDeviceByDeviceNumber(final String deviceNumber) {
 		return deviceRepository.findByDeviceNumber(deviceNumber);

@@ -1,13 +1,11 @@
 {
-  "name": "devices",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "@apollo/federation": "latest",
-    "apollo-server": "latest",
-    "graphql": "latest",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.8"
-  }
+	"name": "devices",
+	"dependencies": {
+		"@apollo/federation": "latest",
+		"apollo-datasource-rest": "^0.6.6",
+		"apollo-server": "latest",
+		"graphql": "latest",
+		"request": "^2.88.0",
+		"request-promise-native": "^1.0.8"
+	}
 }

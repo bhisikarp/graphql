@@ -5,9 +5,7 @@ name: String
 }
 
 type Query {
-customers(count: Int):[Customer]
-customer(id: Int):Customer
-customer(fields : String): Customer
+customerByCustomerId(id: Int):Customer
 }
 type Mutation {
 createCustomer(customerNumber: String!, name: String):Customer

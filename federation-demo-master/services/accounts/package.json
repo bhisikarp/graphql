@@ -1,11 +1,8 @@
 {
-  "name": "accounts",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "@apollo/federation": "latest",
-    "apollo-server": "latest",
-    "graphql": "latest"
-  }
+	"name": "accounts",
+	"dependencies": {
+		"@apollo/federation": "latest",
+		"apollo-server": "latest",
+		"graphql": "latest"
+	}
 }

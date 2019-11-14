@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { buildFederatedSchema } = require("@apollo/federation");
+const CustomerRest = require('./datasources/customer');
 
 const typeDefs = gql`
   extend type Query {
@@ -20,27 +21,21 @@ const resolvers = {
     }
   },
   Customer: {
-    __resolveReference(object) {
-      /*var Request = require("request");
+    __resolveReference: async (object, { dataSources }) => {
       var customerId = object.id;
-      Request.get("http://localhost:8082/customers/"+customerId, (error, response, body) => {
-          if(error) {
-              return console.dir(error);
-          }
-          var obj = JSON.parse(body);
-          console.log("Start");
-          console.log(JSON.parse(body))
-          console.dir(JSON.parse(body));
-          return obj;
-      });*/
-      console.log(customers.find(customer => customer.id === object.id));
-      console.log("### Customer Response  2 ###")
-      return customers.find(customer => customer.id === object.id);
+      const customerRestResponse = await dataSources.customerRest.getCustomerById(customerId);
+      console.log("### Customer Response ###")
+      return customerRestResponse;
     }
   }
 };
 
 const server = new ApolloServer({
+  dataSources: () => {
+    return {
+      customerRest: new CustomerRest(),
+    }
+  },
   schema: buildFederatedSchema([
     {
       typeDefs,
@@ -53,15 +48,11 @@ server.listen({ port: 4003 }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
 
-const customers = [
-  {
-    id: 1,
-    customerNumber: "C1111111111",
-    name: "Priyank"
-  },
-  {
-    id: 2,
-    customerNumber: "C2222222222",
-    name: "Mandar"
-  }
-];
+// export all the important pieces for integration/e2e tests to use
+module.exports = {
+  typeDefs,
+  resolvers,
+  ApolloServer,
+  CustomerRest,
+  server,
+};

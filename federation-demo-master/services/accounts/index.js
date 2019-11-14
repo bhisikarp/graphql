@@ -72,13 +72,13 @@ const accounts = [
   {
     id: "1",
     accountNumber: "A1111111111",
-    device: {id: "1"},
+    device: {id: 1},
     customer: {id: "1"}
   },
   {
     id: "2",
     accountNumber: "A2222222222",
-    device: {id: "2"},
+    device: {id: 2},
     customer: {id: "2"}
   }
 ];
